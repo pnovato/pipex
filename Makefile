@@ -4,7 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = libft
 LIBFT= $(LIBFT_DIR)/libft.a
-SRC = main.c pipex.c utils.c child.c
+SRC = main.c pipex.c utils.c init.c child.c
 OBJ = $(SRC:.c=.o)
 
 all: $(LIBFT)  $(NAME)

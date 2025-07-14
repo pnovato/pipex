@@ -24,7 +24,9 @@ char	*find_command(char *cmd, char **paths)
 	char	*full_path;
 	char	*temp;
 	int	i;
-
+	
+	if (!cmd)
+		return (NULL);
 	i = 0;
 	if (access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
@@ -44,28 +46,13 @@ char	*find_command(char *cmd, char **paths)
 void	error_n_exit(const char *msg)
 {
 	perror(msg);
-	exit(EXIT_FAILURE);
+	exit(127);
 }
 
-void	exec_cmd(char *cmd, char **envp)
+void	default_error_exit(char **args)
 {
-	char	**args;
-	char	**paths;
-	char	*cmd_path;
+	write(2, "command not found\n", 19);
+	free(args);
+	exit(127);
+}
 
-	args = ft_split(cmd, ' ');
-	if (!args || !args[0])
-	{
-		free(args);
-		error_n_exit("Invalid command");
-	}
-	paths = split_path(envp);
-	cmd_path = find_command(args[0], paths);
-	if (!cmd_path)
-	{
-		free(args);
-		error_n_exit("Command not found");
-	}
-	execve(cmd_path, args, envp);
-	error_n_exit("execve failed");
-} 

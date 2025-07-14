@@ -12,5 +12,5 @@ int main(int ac, char **av, char **envp)
 		return (1);
 	}
 	pipex(av, envp);
-	return (0);
+	return (EXIT_FAILURE);
 }
